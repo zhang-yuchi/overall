@@ -18,29 +18,28 @@
         <div v-for="(item) in components" class="block" :ref="item.name" :key="item.name">
           <div class="cpm-name">{{item.name}}</div>
           <div class="intro">{{item.intro}}</div>
-          <div :id="item.name"></div>
           <div class="playground">
             <div :id="`${item.name}-playground`"></div>
           </div>
           <div class="attr-title">参数</div>
           <table>
             <tr class="table-head">
-              <th>参数名称</th>
-              <th>参数类型</th>
-              <th>参数描述</th>
+              <th style="padding:10px 0">参数名称</th>
+              <th style="padding:10px 0">参数类型</th>
+              <th style="padding:10px 0">参数描述</th>
             </tr>
             <tr class="table-body" v-for="(it,ky) in item.proper.params" :key="ky">
-              <th width="30%">{{it.name}}</th>
-              <th width="30%">{{it.type}}</th>
-              <th width="30%">{{it.desc}}</th>
+              <th width="30%" style="padding:10px 0">{{it.name}}</th>
+              <th width="30%" style="padding:10px 0">{{it.type}}</th>
+              <th width="30%" style="padding:10px 0">{{it.desc}}</th>
             </tr>
           </table>
           <div class="attr-title">方法</div>
           <table>
             <tr class="table-head">
-              <th width="30%">方法名称</th>
-              <th width="30%">方法类型</th>
-              <th width="30%">方法描述</th>
+              <th style="padding:10px 0" width="30%">方法名称</th>
+              <th style="padding:10px 0" width="30%">方法类型</th>
+              <th style="padding:10px 0" width="30%">方法描述</th>
             </tr>
             <tr class="table-body" v-for="(it,ky) in item.proper.function" :key="ky">
               <th>{{it.name}}</th>
@@ -97,8 +96,8 @@ export default {
     this.$nextTick().then(() => {
       const components = overAll.components;
       components.map((item, index) => {
-        let Instance = Vue.extend(item.component);
-        let instance = new Instance().$mount(`#${item.name}`)
+        // let Instance = Vue.extend(item.component);
+        // let instance = new Instance().$mount(`#${item.name}`)
         if(item['test']){
           let name = item['name']
           let testInstance = Vue.extend(item.test.component)
