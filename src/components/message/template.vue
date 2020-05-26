@@ -1,9 +1,8 @@
-<!--  -->
+<!-- 消息模板 -->
 <template>
-  <div
-    :class="[this['ovClass'],[isActive?this['clickClass']:''],'ov-button',disabled?this['forbiddenClass']:'']"
-    @click="callback"
-  ><slot></slot></div>
+  <div :class="[this['screenClass']]">
+    <div :class="[this['noticeClass']]">{{content}}</div>
+  </div>
 </template>
 
 <script>
@@ -12,42 +11,48 @@
 
 export default {
   //import引入的组件需要注入到对象中才能使用
-  components: {},
   props: {
-    "ov-class": String,
-    "click-class": String,
-    duration: { type: Number, default: 300 },
-    disabled: Boolean,
-    "forbidden-class": String
+    duration: {
+      type: Number,
+      default: 1000
+    },
+    "notice-class": {
+      type: String,
+      default: "ov-notice"
+    },
+    "screen-class": {
+      type: String,
+      default: "ov-screen"
+    },
+    content: {
+      type: String,
+      default: ""
+    },
+    autoClose: {
+      type: Boolean,
+      default: true
+    }
   },
+  components: {},
   data() {
     //这里存放数据
-    return {
-      isActive: false
-    };
+    return {};
   },
   //监听属性 类似于data概念
   computed: {},
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {
-    callback(e) {
-      if (!this.disabled) {
-        this.isActive = true;
-        setTimeout(() => {
-          this.isActive = false;
-        }, this.duration);
-        this.$emit("callback", e);
-      }
-    }
-  },
+  methods: {},
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-    // console.log(this.$props);
-    // console.log(this.ovClass);
+    if (this['autoClose']) {
+      setTimeout(() => {
+        this.remove();
+      }, this.duration);
+    }
   },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
@@ -59,8 +64,5 @@ export default {
   deactivated() {} //如果有keep-alive缓存功能,当该页面撤销使这个函数会触发
 };
 </script>
-<style lang='less'>
-.ov-button {
-  display: inline-block;
-}
+<style>
 </style>

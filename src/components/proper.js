@@ -34,10 +34,41 @@ class ButtonProper extends Proper{
     transferHump(this)
   }
 }
+class MessageProper{
+  constructor(){
+    this.duration = {
+      type:'Number',
+      desc:"代表弹窗持续时间"
+    }
+    this.noticeClass = {
+      type:"String",
+      desc:"消息框样式"
+    }
+    this.screenClass = {
+      type:'String',
+      desc:"消息框位置相关样式"
+    }
+    this.content = {
+      type:"String",
+      desc:"消息框内容"
+    }
+    this.autoClose = {
+      type:'String',
+      desc:"是否自动关闭",
+      noHump:true
+    }
+    transferHump(this)
+  }
+}
 //转换驼峰
 function transferHump(obj){
   Object.keys(obj).map(key=>{
-    obj[key].name = _transferHump(key)
+    if(!obj[key]['noHump']){
+      obj[key].name = _transferHump(key)
+    }else{
+      obj[key].name = key
+    }
+
   })
 }
 function _transferHump(field){
@@ -54,5 +85,6 @@ function _transferHump(field){
 }
 export {
   Proper,
-  ButtonProper
+  ButtonProper,
+  MessageProper
 }
