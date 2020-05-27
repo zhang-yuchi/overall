@@ -38,7 +38,7 @@ class MessageProper{
   constructor(){
     this.duration = {
       type:'Number',
-      desc:"代表弹窗持续时间"
+      desc:"代表弹窗持续时间,若autoClose为true,则不会关闭;默认时间为1s"
     }
     this.noticeClass = {
       type:"String",
@@ -57,6 +57,72 @@ class MessageProper{
       desc:"是否自动关闭",
       noHump:true
     }
+    transferHump(this)
+  }
+}
+class FormProper extends Proper{
+  constructor(){
+    super()
+    this.formData = {
+      type:"Object",
+      desc:"作为校验的表单对象",
+      noHump:true
+    }
+    transferHump(this)
+  }
+}
+class InputProper extends Proper{
+  constructor(){
+    super()
+    this.ovClass = {
+      type:"String",
+      desc:"输入框样式"
+    }
+    this.itemClass = {
+      type:"String",
+      desc:"输入框外部容器样式"
+    },
+    this.tipsClass = {
+      type:'String',
+      desc:"错误提示框样式"
+    },
+    this.error = {
+      type:'String',
+      desc:"错误提示文本"
+    },
+    this.field = {
+      type:"String",
+      desc:"所属表单字段"
+    },
+    this.placeholder = {
+      type:'String',
+      desc:"占位符"
+    }
+    this.formData = {
+      type:'Object',
+      desc:"从父组件引入的form表单,若需要使用校验则必传"
+    }
+    this.trigger = {
+      type:"String",
+      desc:"触发校验的方式,支持input和blur"
+    }
+    this.validator = {
+      type:"String",
+      desc:"触发校验的校验器,传入字符串,在validator中定义"
+    }
+    this.field = {
+      type:"String",
+      desc:"字段名称"
+    }
+    this.vModel = {
+      type:"String",
+      desc:"传入绑定的值 如 form.account"
+    }
+    this.callback = {
+      type:"Function",
+      desc:"返回参数"
+    }
+    
     transferHump(this)
   }
 }
@@ -86,5 +152,7 @@ function _transferHump(field){
 export {
   Proper,
   ButtonProper,
-  MessageProper
+  MessageProper,
+  FormProper,
+  InputProper
 }

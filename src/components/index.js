@@ -5,12 +5,16 @@ import {
 import {
   Proper,
   ButtonProper,
-  MessageProper
+  MessageProper,
+  FormProper,
+  InputProper
 } from './proper'
 import tests from '../test'
+import {MountValidator} from './validator'
 
 //组件引入
 import button from './button'
+import form from './form'
 import input from './input'
 import city from './city'
 import message from './message'
@@ -20,7 +24,8 @@ const overAll = new Object()
 
 //组件封装  存入数组
 componentContainer.push(new Packing(button, 'ov-button', '这是一个button组件', new ButtonProper()))
-componentContainer.push(new Packing(input, 'ov-input', '这是一个input组件'))
+componentContainer.push(new Packing(form,'ov-form','这是一个表单组件',new FormProper()))
+componentContainer.push(new Packing(input, 'ov-input', '这是一个input组件',new InputProper()))
 componentContainer.push(new Packing(city, 'ov-city', '这是一个city组件'))
 componentContainer.push(new Packing(message, 'ovNotice', '使用this.ovNotice调用消息通知',new MessageProper()))
 
@@ -51,7 +56,7 @@ overAll.install = function (Vue) {
     }
   })
 }
-
+MountValidator(overAll)
 function mergeTestComponent(componentArray, tests) {
   tests.map(item => {
     const res = componentArray.find((cpm) => {
