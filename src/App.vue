@@ -14,7 +14,7 @@
           <div>{{item.name}}</div>
         </div>
       </div>
-      <div class="content">
+      <div class="content" @scroll="listenScroll()()">
         <div v-for="(item) in components" class="block" :ref="item.name" :key="item.name">
           <div class="cpm-name">{{item.name}}</div>
           <div class="intro">{{item.intro}}</div>
@@ -64,7 +64,9 @@ export default {
   data() {
     //这里存放数据
     return {
-      active: "ov-button"
+      active: "ov-button",
+      scrollList: [],
+      content:null
     };
   },
   //监听属性 类似于data概念
@@ -87,6 +89,29 @@ export default {
         const container = this.$el.querySelector(".content");
         container.scrollTop = top;
       });
+    },
+    listenScroll(ev) {
+      let timer = null;
+      let that = this
+      return function(ev){
+          timer = setTimeout(()=>{
+            // console.log(ev);
+            let res = null
+            let scroll = that.content.scrollTop
+            for(let i = 0;i<that.scrollList.length;i++){
+              if(that.scrollList[i].top>=scroll){
+                res = that.scrollList[i-1]
+                break
+              }else{
+                res = that.scrollList[i]
+              }
+            }
+            if(res){
+              that.active = res.name
+            }
+        
+          },500)
+      }
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -94,14 +119,22 @@ export default {
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
     this.$nextTick().then(() => {
+      Object.keys(this.$refs).map(key => {
+        this.scrollList.push({
+          top: this.$refs[key][0].offsetTop,
+          name: key
+        });
+      });
+      this.content = document.querySelector('.content')
+      // console.log(this.content);
       const components = overAll.components;
       components.map((item, index) => {
         // let Instance = Vue.extend(item.component);
         // let instance = new Instance().$mount(`#${item.name}`)
-        if(item['test']){
-          let name = item['name']
-          let testInstance = Vue.extend(item.test.component)
-          new testInstance().$mount(`#${item.name}-playground`)
+        if (item["test"]) {
+          let name = item["name"];
+          let testInstance = Vue.extend(item.test.component);
+          new testInstance().$mount(`#${item.name}-playground`);
         }
       });
     });
@@ -193,7 +226,7 @@ table {
 .active-nav {
   color: #409eff;
 }
-.playground{
+.playground {
   padding: 20px 0;
 }
 </style>

@@ -1,7 +1,13 @@
 <!--  -->
 <template>
-  <div :class="this['ovClass']">
-    
+  <div class>
+    <ov-select
+      :data="data"
+      ov-class="select-style"
+      select-style="select-content"
+      option-class="option-style"
+      @change="change"
+    ></ov-select>
   </div>
 </template>
 
@@ -11,40 +17,46 @@
 
 export default {
   //import引入的组件需要注入到对象中才能使用
-  props: {
-    "ov-class": String,
-    validate: {
-      type: Boolean,
-      default: false
-    },
-    validator:{
-      type:Function
-    },
-    formData:{
-      type:Object
-    }
-  },
   components: {},
   data() {
     //这里存放数据
-    return {};
+    return {
+      data: [
+        {
+          option: "小新",
+          value: "xinjiang"
+        },
+        {
+          option: "正南",
+          value: "zhengnan"
+        },
+        {
+          option: "阿呆",
+          value: "adai"
+        },
+        {
+          option: "风间",
+          value: "fengjian"
+        }
+      ]
+    };
   },
   //监听属性 类似于data概念
   computed: {},
   //监控data中的数据变化
-  watch: {
-    validate(newVal,oldVal){
-      this.$emit('validateResult',new this.validator().validate(this.formData))
+  watch: {},
+  //方法集合
+  methods: {
+    change(value, index) {
+      this.ovNotice({
+        content: `你当前选中的对象是${this.data[index].option}  它的值为${value.value}`
+      });
     }
   },
-  //方法集合
-  methods: {},
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {
-
-  },
+  mounted() {},
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
   beforeUpdate() {}, //生命周期 - 更新之前
@@ -56,4 +68,24 @@ export default {
 };
 </script>
 <style>
+.option-style {
+  padding: 10px;
+  line-height: 15px;
+  width: 100px;
+  cursor: pointer;
+  background-color: white;
+}
+.option-style:hover {
+  background-color: #f1f1f1;
+}
+.select-style {
+  cursor: pointer;
+  padding: 10px;
+  min-width: 100px;
+  width: 100px;
+  /* text-align: center; */
+}
+.select-content {
+  
+}
 </style>

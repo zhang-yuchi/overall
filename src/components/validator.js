@@ -112,11 +112,12 @@ function MountValidator(overAll) {
     LoginValidator
   }
 
-  overAll.check = (formdata,field,validator)=>{
+  overAll.check = (formdata,field,validator,value)=>{//最后一个参数主要解决异步问题
     //校验单个表单项
     if(typeof validator !== 'string'){
       console.warn('we need a string validator name for this param')
     }
+    formdata[field] = value
     // console.log(new overAll.validators[validator]().validate(formdata));
     return new overAll.validators[validator]().validate(formdata)[field]
   }

@@ -1,22 +1,27 @@
 <!--  -->
 <template>
   <div class>
-      <ov-input
-        :formData="form"
-        trigger="input"
-        validator="LoginValidator"
-        field="account"
-        v-model="form.account"
-        @callback='back'
-        item-class="item-style-form"
-        ov-class="input-style-form"
-        placeholder="用户名"
-        style="margin-right:30px;"
-        tips-class="error"
-      >
-        <div slot="head" class="header-icon">H</div>
-        <div slot="tail" class="tail-icon">T</div>
-      </ov-input>
+    <ov-input
+      :formData="form"
+      trigger="blur"
+      validator="LoginValidator"
+      field="account"
+      v-model="form.account"
+      @callback="back"
+      item-class="item-style-form"
+      ov-class="input-style-form"
+      placeholder="用户名"
+      style="margin-right:30px;"
+      tips-class="error"
+      focus-class="focus-input"
+      tips-enter-style="error-in"
+      tips-outer-style="error-out"
+      :in-time="300"
+      :out-time="300"
+    >
+      <div slot="head" class="header-icon">H</div>
+      <div slot="tail" class="tail-icon">T</div>
+    </ov-input>
   </div>
 </template>
 
@@ -46,7 +51,7 @@ export default {
   //方法集合
   methods: {
     back(res) {
-      res.formData[res.field] = res.value
+      res.formData[res.field] = res.value;
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -75,9 +80,6 @@ export default {
   margin-top: 10px;
   /* border: 1px solid black; */
 }
-.normal-input-item {
-  border: 1px solid pink;
-}
 .item-style-form {
   position: relative;
   display: inline-block;
@@ -85,6 +87,7 @@ export default {
 .input-style-form {
   width: 100%;
   border: 1px solid #ccc;
+  transition: 0.3s;
   outline: none;
   padding: 10px 30px;
   box-sizing: border-box;
@@ -103,6 +106,38 @@ export default {
   right: 10px;
 }
 .error {
+  position: absolute;
   color: red;
+  bottom: 0px;
+  z-index: -1;
+  /* transform: translateY(100%); */
+}
+.focus-input {
+  border-color: rgb(11, 174, 174);
+}
+.error-in {
+  animation: tipsIn 0.3s forwards;
+}
+.error-out {
+  animation: tipsOut 0.3s forwards;
+}
+@keyframes tipsIn {
+  form {
+    /* margin-top:-30px;
+     */
+    transform: translateY(50%);
+  }
+  to {
+    /* margin-top: 10px; */
+    transform: translateY(100%);
+  }
+}
+@keyframes tipsOut {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
 }
 </style>

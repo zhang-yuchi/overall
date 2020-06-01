@@ -53,7 +53,7 @@ class MessageProper{
       desc:"消息框内容"
     }
     this.autoClose = {
-      type:'String',
+      type:'Boolean',
       desc:"是否自动关闭",
       noHump:true
     }
@@ -117,6 +117,22 @@ class InputProper extends Proper{
     this.vModel = {
       type:"String",
       desc:"传入绑定的值 如 form.account"
+    }
+    this.tipsEnterStyle = {
+      type:"String",
+      desc:"input错误框显示动画,需要自行传入动画css"
+    }
+    this.tipsOuterStyle = {
+      type:"String",
+      desc:"input错误提示框消失动画,需要自行传入动画css"
+    }
+    // this.inTime = {
+    //   type:"String",
+      
+    // }
+    this.outTime = {
+      type:"String",
+      desc:"input错误提示框消失的持续时间,当超过这个时间后,将移除tips-outer-style类并将错误信息置为空"
     }
     this.callback = {
       type:"Function",

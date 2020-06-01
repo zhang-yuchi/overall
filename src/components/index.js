@@ -18,14 +18,16 @@ import form from './form'
 import input from './input'
 import city from './city'
 import message from './message'
+import select from './select'
 
 const componentContainer = new Array()
 const overAll = new Object()
 
 //组件封装  存入数组
-componentContainer.push(new Packing(button, 'ov-button', '这是一个button组件', new ButtonProper()))
+componentContainer.push(new Packing(button, 'ov-button', '这是一个button组件,也可以作为卡片类组件使用', new ButtonProper()))
 componentContainer.push(new Packing(form,'ov-form','这是一个表单组件',new FormProper()))
-componentContainer.push(new Packing(input, 'ov-input', '这是一个input组件',new InputProper()))
+componentContainer.push(new Packing(input, 'ov-input', '这是一个input组件,通常情况下，应当处理 callback 事件，并更新组件的绑定值（或使用v-model）。否则，输入框内显示的值将不会改变。',new InputProper()))
+componentContainer.push(new Packing(select,'ov-select','下拉菜单组件'))
 componentContainer.push(new Packing(city, 'ov-city', '这是一个city组件'))
 componentContainer.push(new Packing(message, 'ovNotice', '使用this.ovNotice调用消息通知',new MessageProper()))
 

@@ -13,7 +13,6 @@ function ovNotice(props){
     document.body.removeChild(vm.$el)
     vm.$destroy()
   }
-  console.log(vm);
   vm.comp = comp
   return comp
 }

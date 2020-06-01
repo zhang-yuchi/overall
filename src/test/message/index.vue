@@ -5,8 +5,15 @@
       ov-class="normal-class"
       @callback="clickCallback"
       click-class="click"
+      style="margin-right:30px"
       :duration="300"
     >点击出现弹窗</ov-button>
+    <ov-button
+      ov-class="normal-class"
+      @callback="clickCustom"
+      click-class="click"
+      :duration="300"
+    >点击出现自定义弹窗</ov-button>
 </div>
 </template>
 
@@ -35,6 +42,17 @@ methods: {
       content:"弹窗测试",
       autoClose:true,
     });
+  },
+  clickCustom(){
+    let cm = this.ovNotice({
+      content:"自定义弹窗样式",
+      'notice-class':"custom-notice",
+      'screen-class':'custom-screen',
+      autoClose:false
+    })
+    setTimeout(()=>{
+      cm.remove()
+    },5000)
   }
 },
 //生命周期 - 创建完成（可以访问当前this实例）
@@ -68,5 +86,18 @@ deactivated() {}, //如果有keep-alive缓存功能,当该页面撤销使这个�
   opacity: 0.7;
   color: white;
   border-radius: 15px;
+}
+.custom-screen{
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.custom-notice{
+  padding: 20px;
+  border-radius: 10px;
+  display: inline-block;
+  background-color: #f2f2f2;
+  color: #333;
 }
 </style>
